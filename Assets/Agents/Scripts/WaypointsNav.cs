@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEditor;
 
-public class Waypoints : MonoBehaviour
+public class WaypointsNav : MonoBehaviour
 {
-
     public List<Transform> waypoints;
+
     protected int step = 1;
 
     protected NavMeshAgent agent;
@@ -22,6 +23,8 @@ public class Waypoints : MonoBehaviour
 
     private void Update()
     {
+        transform.rotation = Quaternion.LookRotation(agent.velocity.normalized);
+
         bool arrived = agent.remainingDistance < 2;
 
         if (arrived && step < waypoints.Count)

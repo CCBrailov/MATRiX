@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 683528602219630067}
   - component: {fileID: 7912583076451720251}
-  - component: {fileID: 8862371408172442655}
+  - component: {fileID: 1694060628146947159}
   m_Layer: 0
   m_Name: Agent
   m_TagString: Untagged
@@ -30,7 +30,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 118129243035675414}
+  - {fileID: 4305151607314560416}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -56,7 +56,7 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 0
---- !u!114 &8862371408172442655
+--- !u!114 &1694060628146947159
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -69,7 +69,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waypoints: []
---- !u!1001 &443908676206939389
+  wayvectors:
+  - {x: 0, y: 0, z: 0}
+--- !u!1001 &4338164834686390859
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -122,12 +124,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 9c1cdd31c000fd84f91e49f8fb07ee92, type: 3}
       propertyPath: m_Name
-      value: ybot (1)
+      value: ybot
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9c1cdd31c000fd84f91e49f8fb07ee92, type: 3}
---- !u!4 &118129243035675414 stripped
+--- !u!4 &4305151607314560416 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 9c1cdd31c000fd84f91e49f8fb07ee92, type: 3}
-  m_PrefabInstance: {fileID: 443908676206939389}
+  m_PrefabInstance: {fileID: 4338164834686390859}
   m_PrefabAsset: {fileID: 0}
