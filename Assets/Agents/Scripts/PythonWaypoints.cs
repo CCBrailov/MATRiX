@@ -30,7 +30,6 @@ public class PythonWaypoints : MonoBehaviour
             int[] point = new int[2];
             l.CopyTo(point, 0);
             coords.Add(point);
-            Debug.Log(point[0].ToString() + ", " + point[1].ToString());
         }
     }
 

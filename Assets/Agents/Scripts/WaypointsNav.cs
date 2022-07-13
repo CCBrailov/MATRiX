@@ -46,8 +46,6 @@ public class WaypointsNav : MonoBehaviour
 
     private void Update()
     {
-        waypointObject.transform.position = new(0, 0, 0);
-
         animator.SetBool("Moving", agent.velocity != new Vector3(0, 0, 0) && !stopTriggered);
         
         if(agent.remainingDistance < 0.8 && step == waypoints.Count)
