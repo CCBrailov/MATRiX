@@ -1,13 +1,18 @@
-import random as r
+import random
 
 class Points:
-    def __init__(self, int: size):
+    def __init__(self, size):
         self.size = size
     
     def makePoints(self):
         points = []
-        for i in range(8):
-            x = r.randint(-9, 9)
-            y = r.randint(-9, 9)
+        for i in range(self.size):
+            x = random.randint(-9, 9)
+            y = random.randint(-9, 9)
             points.append([x, y])
         return points
+
+# p = Points(2)
+# pts = p.makePoints()
+# for pt in pts:
+#     print(pt)
