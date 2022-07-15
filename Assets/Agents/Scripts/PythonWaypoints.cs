@@ -10,6 +10,11 @@ public class PythonWaypoints : MonoBehaviour
 
     private void Awake()
     {
+        GeneratePoints();
+    }
+
+    public void GeneratePoints()
+    {
         var engine = Python.CreateEngine();
 
         ICollection<string> searchPaths = engine.GetSearchPaths();
@@ -31,10 +36,5 @@ public class PythonWaypoints : MonoBehaviour
             l.CopyTo(point, 0);
             coords.Add(point);
         }
-    }
-
-    private void Start()
-    {
-
     }
 }

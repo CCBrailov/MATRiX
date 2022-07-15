@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEditor;
 
-public class WaypointsNav : MonoBehaviour
+public class Agent : MonoBehaviour
 {
     public GameObject waypointObject;
     public List<Transform> waypoints;
@@ -27,13 +27,7 @@ public class WaypointsNav : MonoBehaviour
     {
         animator = GetComponent<Animator>();
 
-        foreach (int[] wp in source.coords)
-        {
-            GameObject point = Instantiate(pointPrefab);
-            point.transform.position = new(wp[0], 0, wp[1]);
-            waypoints.Add(point.transform);
-            point.transform.SetParent(waypointObject.transform);
-        }
+        GetWaypoints();
         
         if(waypoints.Count > 0)
         {
@@ -68,4 +62,17 @@ public class WaypointsNav : MonoBehaviour
         }
     }
 
+    [ContextMenu("New waypoints")]
+    void GetWaypoints()
+    {
+        waypoints.Clear();
+        source.GeneratePoints();
+        foreach (int[] wp in source.coords)
+        {
+            GameObject point = Instantiate(pointPrefab);
+            point.transform.position = new(wp[0], 0, wp[1]);
+            waypoints.Add(point.transform);
+            point.transform.SetParent(waypointObject.transform);
+        }
+    }
 }
