@@ -774,16 +774,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: Agent
       objectReference: {fileID: 0}
+    - target: {fileID: 3316940249118845791, guid: cbe7c8b92de5ec84faae905d2ebdd457, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6716385175567325580, guid: cbe7c8b92de5ec84faae905d2ebdd457, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7912583076451720251, guid: cbe7c8b92de5ec84faae905d2ebdd457, type: 3}
-      propertyPath: m_AutoBraking
-      value: 1
+      propertyPath: m_Speed
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7912583076451720251, guid: cbe7c8b92de5ec84faae905d2ebdd457, type: 3}
-      propertyPath: m_Acceleration
+      propertyPath: m_AutoBraking
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8003373411857892502, guid: cbe7c8b92de5ec84faae905d2ebdd457, type: 3}
@@ -798,7 +802,9 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 9070546316742296337, guid: cbe7c8b92de5ec84faae905d2ebdd457, type: 3}
+    - {fileID: 3316940249118845791, guid: cbe7c8b92de5ec84faae905d2ebdd457, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: cbe7c8b92de5ec84faae905d2ebdd457, type: 3}
 --- !u!1 &1979305674
 GameObject:
