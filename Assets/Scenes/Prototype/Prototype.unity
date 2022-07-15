@@ -774,33 +774,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: Agent
       objectReference: {fileID: 0}
-    - target: {fileID: 1694060628146947159, guid: cbe7c8b92de5ec84faae905d2ebdd457, type: 3}
-      propertyPath: waypointObject
-      value: 
-      objectReference: {fileID: 1979305674}
-    - target: {fileID: 1694060628146947159, guid: cbe7c8b92de5ec84faae905d2ebdd457, type: 3}
-      propertyPath: waypoints.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1694060628146947159, guid: cbe7c8b92de5ec84faae905d2ebdd457, type: 3}
-      propertyPath: waypoints.Array.data[0]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1694060628146947159, guid: cbe7c8b92de5ec84faae905d2ebdd457, type: 3}
-      propertyPath: waypoints.Array.data[1]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1694060628146947159, guid: cbe7c8b92de5ec84faae905d2ebdd457, type: 3}
-      propertyPath: waypoints.Array.data[2]
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 6716385175567325580, guid: cbe7c8b92de5ec84faae905d2ebdd457, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6752989628590923312, guid: cbe7c8b92de5ec84faae905d2ebdd457, type: 3}
-      propertyPath: numberOfWaypoints
-      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7912583076451720251, guid: cbe7c8b92de5ec84faae905d2ebdd457, type: 3}
       propertyPath: m_AutoBraking
