@@ -4,11 +4,10 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEditor;
 
-public class WaypointsNav : MonoBehaviour
+public class Agent : MonoBehaviour
 {
     public GameObject waypointObject;
     public List<Transform> waypoints;
-    public PythonWaypoints source;
     public GameObject pointPrefab;
 
     bool stopTriggered = false;
@@ -20,20 +19,11 @@ public class WaypointsNav : MonoBehaviour
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
-        waypoints = new();
     }
 
     private void Start()
     {
         animator = GetComponent<Animator>();
-
-        foreach (int[] wp in source.coords)
-        {
-            GameObject point = Instantiate(pointPrefab);
-            point.transform.position = new(wp[0], 0, wp[1]);
-            waypoints.Add(point.transform);
-            point.transform.SetParent(waypointObject.transform);
-        }
         
         if(waypoints.Count > 0)
         {
