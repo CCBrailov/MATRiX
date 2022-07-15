@@ -6,24 +6,60 @@ using UnityEditor;
 
 public class WaypointsNav : MonoBehaviour
 {
+    public GameObject waypointObject;
     public List<Transform> waypoints;
+    public PythonWaypoints source;
+    public GameObject pointPrefab;
 
-    protected int step = 1;
+    bool stopTriggered = false;
 
-    protected NavMeshAgent agent;
+    int step = 1;
+    NavMeshAgent agent;
+    Animator animator;
+
+    private void Awake()
+    {
+        agent = GetComponent<NavMeshAgent>();
+        waypoints = new();
+    }
 
     private void Start()
     {
-        agent = GetComponent<NavMeshAgent>();
+        animator = GetComponent<Animator>();
+
+        foreach (int[] wp in source.coords)
+        {
+            GameObject point = Instantiate(pointPrefab);
+            point.transform.position = new(wp[0], 0, wp[1]);
+            waypoints.Add(point.transform);
+            point.transform.SetParent(waypointObject.transform);
+        }
+        
         if(waypoints.Count > 0)
         {
             agent.destination = waypoints[0].position;
         }
+
+        NavMeshPath path = new();
+        agent.CalculatePath(waypoints[0].position, path);
     }
 
     private void Update()
     {
-        transform.rotation = Quaternion.LookRotation(agent.velocity.normalized);
+        waypointObject.transform.position = new(0, 0, 0);
+
+        animator.SetBool("Moving", agent.velocity != new Vector3(0, 0, 0) && !stopTriggered);
+        
+        if(agent.remainingDistance < 0.8 && step == waypoints.Count)
+        {
+            animator.SetTrigger("Stopping");
+            stopTriggered = true;
+        }
+        
+        if(agent.velocity.normalized != new Vector3(0, 0, 0))
+        {
+            transform.rotation = Quaternion.LookRotation(agent.velocity.normalized);
+        }
 
         bool arrived = agent.remainingDistance < 2;
 
