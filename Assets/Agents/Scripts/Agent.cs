@@ -90,6 +90,17 @@ public class Agent : MonoBehaviour
         }
     }
 
+    public void SetPath(List<Vector3> path)
+    {
+        waypoints = path;
+        step = 1;
+    }
+
+    public void StartNav()
+    {
+        navAgent.destination = waypoints[0];
+    }
+
     #region Editor Gizmo devcode
     public void HideBody()
     {

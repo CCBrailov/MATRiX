@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
+using UnityEngine.Events;
 
 public class AgentManager : MonoBehaviour
 {
@@ -16,9 +16,10 @@ public class AgentManager : MonoBehaviour
     [SerializeField]
     WaypointClient client;
 
+    UnityEvent pathProvided;
     List<Agent> agents;
     List<Vector3> points;
-    List<List<Vector3>> pointLists;
+    List<List<Vector3>> paths;
     float timer;
 
 
@@ -31,6 +32,8 @@ public class AgentManager : MonoBehaviour
     private void Awake()
     {
         agents = new();
+        paths = new();
+        pathProvided = new();
         timer = 0;
     }
 
@@ -48,12 +51,14 @@ public class AgentManager : MonoBehaviour
             a.transform.position = new(Random.Range(-9, 9), 0, Random.Range(-9, 9));
             agents.Add(a);
         }
+
+        GetWaypointsFromServer();
     }
 
     private void Update()
     {
         timer += Time.deltaTime;
-        if (timer >= 3)
+        if (timer >= 10)
         {
             GetWaypointsFromServer();
             timer = 0;
@@ -80,9 +85,31 @@ public class AgentManager : MonoBehaviour
         Debug.Log($"Received: {s}");
         points = new();
         points = DecodeWaypoints(s);
-        foreach(Vector3 v in points)
+        paths = new();
+        for(int i = 0; i < points.Count; i += pathLength)
         {
-            Debug.Log(v);
+            List<Vector3> path = new();
+            for(int j = 0; j < pathLength; j++)
+            {
+                path.Add(points[i + j]);
+            }
+            paths.Add(path);
+        }
+        foreach(List<Vector3> p in paths)
+        {
+            string debugStr = "";
+            foreach(Vector3 v in p)
+            {
+                debugStr += v.ToString() + " / ";
+            }
+            Debug.Log(debugStr);
+        }
+        for(int i = 0; i < paths.Count; i++)
+        {
+            pathProvided.AddListener(agents[i].StartNav);
+            agents[i].SetPath(paths[i]);
+            pathProvided.Invoke();
+            pathProvided.RemoveAllListeners();
         }
     }
 }
