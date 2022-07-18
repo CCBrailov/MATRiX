@@ -70,6 +70,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waypoints: []
+  model: {fileID: 3527770135649578778}
+  arrivalDistance: 1.5
 --- !u!95 &9159757976875638840
 Animator:
   serializedVersion: 4
@@ -156,6 +158,11 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 5866666021909216657, guid: 9c1cdd31c000fd84f91e49f8fb07ee92, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 9c1cdd31c000fd84f91e49f8fb07ee92, type: 3}
+--- !u!1 &3527770135649578778 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 9c1cdd31c000fd84f91e49f8fb07ee92, type: 3}
+  m_PrefabInstance: {fileID: 4338164834686390859}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4305151607314560416 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 9c1cdd31c000fd84f91e49f8fb07ee92, type: 3}
