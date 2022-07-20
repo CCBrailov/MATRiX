@@ -6,15 +6,16 @@ using UnityEngine.Events;
 public class AgentManager : MonoBehaviour
 {
     public bool hideAgentModelsOnSelect = true;
+    [HideInInspector]
     public bool atCapacity = false;
 
+    int numberOfAgents = 0;
     [SerializeField]
-    int numberOfAgents = 1;
-    int maxAgents = 6;
+    int maxAgents = 30;
     int agentsAdded = 0;
 
     [SerializeField]
-    int pathLength = 4;
+    public int pathLength = 4;
 
     [SerializeField]
     GameObject agentPrefab;
@@ -67,7 +68,7 @@ public class AgentManager : MonoBehaviour
             initialized = true;
         }
 
-        if(timer >= 8)
+        if(timer >= 6)
         {
             GetWaypointsFromServer();
             timer = 0;
@@ -107,7 +108,7 @@ public class AgentManager : MonoBehaviour
     public void AcceptWaypoints()
     {
         string s = client.GetWaypointsFromBuffer();
-        Debug.Log($"Received: {s}");
+        //Debug.Log($"Received: {s}");
         paths = new();
         points = new();
         points = DecodeWaypoints(s);

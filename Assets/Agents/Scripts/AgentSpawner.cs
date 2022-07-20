@@ -42,8 +42,10 @@ public class AgentSpawner : MonoBehaviour
             Agent a = Instantiate(agentPrefab, manager.transform).GetComponent<Agent>();
             manager.AddAgent(a);
             a.transform.SetPositionAndRotation(transform.position, transform.rotation);
-            a.waypoints.Add(transform.position + transform.forward.normalized * 3);
-            a.waypoints.Add(transform.position + transform.forward.normalized * 6);
+            for(int i = 1; i <= manager.pathLength; i++)
+            {
+                a.waypoints.Add(transform.position + (transform.forward.normalized * i * 3));
+            }
             a.StartNav();
         }
     }

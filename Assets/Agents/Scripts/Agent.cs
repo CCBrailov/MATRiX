@@ -121,7 +121,7 @@ public class Agent : MonoBehaviour
         if (arrived && step < waypoints.Count)
         {
             navAgent.destination = waypoints[step];
-            navAgent.speed = Vector3.Distance(transform.position, waypoints[step]) / 5;
+            navAgent.speed = Vector3.Distance(transform.position, waypoints[step]) / 2;
             step++;
         }
         else if (arrived && step == waypoints.Count)
@@ -152,7 +152,7 @@ public class Agent : MonoBehaviour
     {
         step = 1;
         navAgent.destination = waypoints[0];
-        navAgent.speed = Vector3.Distance(transform.position, waypoints[0]) / 5;
+        navAgent.speed = Vector3.Distance(transform.position, waypoints[0]) / 2;
     }
 
     #region Editor Gizmos

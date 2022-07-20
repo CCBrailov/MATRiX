@@ -74,7 +74,7 @@ MonoBehaviour:
   startTrigger: 0
   forceHide: 0
   model: {fileID: 3527770135649578778}
-  arrivalDistance: 0.1
+  arrivalDistance: 0.2
   step: 1
 --- !u!95 &9159757976875638840
 Animator:

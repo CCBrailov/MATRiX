@@ -316,7 +316,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hideAgentModelsOnSelect: 0
   atCapacity: 0
-  numberOfAgents: 0
+  maxAgents: 6
   pathLength: 3
   agentPrefab: {fileID: 1522385105327376544, guid: cbe7c8b92de5ec84faae905d2ebdd457, type: 3}
   client: {fileID: 420242472}
