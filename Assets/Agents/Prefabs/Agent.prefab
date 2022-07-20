@@ -46,7 +46,7 @@ NavMeshAgent:
   m_AgentTypeID: 0
   m_Radius: 0.5
   m_Speed: 1.4
-  m_Acceleration: 3
+  m_Acceleration: 300
   avoidancePriority: 50
   m_AngularSpeed: 120
   m_StoppingDistance: 0
@@ -69,9 +69,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd4afa96263129b4cb12db13d77a4d04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  trajectory: []
   waypoints: []
+  startTrigger: 0
+  forceHide: 0
   model: {fileID: 3527770135649578778}
-  arrivalDistance: 1.5
+  arrivalDistance: 0.1
+  step: 1
 --- !u!95 &9159757976875638840
 Animator:
   serializedVersion: 4

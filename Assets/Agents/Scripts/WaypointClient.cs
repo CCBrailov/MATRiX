@@ -44,9 +44,16 @@ public class WaypointClient : MonoBehaviour
 
     public void Ping(int numAgents, int pathLength, UnityAction call)
     {
-        received.AddListener(call);
-        string nStr = "" + (numAgents * pathLength);
-        stream.Write(Encoding.UTF8.GetBytes(nStr));
+        if (socket.Connected)
+        {
+            received.AddListener(call);
+            string nStr = "" + (numAgents * pathLength);
+            stream.Write(Encoding.UTF8.GetBytes(nStr));
+        }
+        else
+        {
+            UnityEngine.Debug.Log("Server not yet connected");
+        }
     }
 
     void ConnectCallback(IAsyncResult asyncResult)
@@ -85,5 +92,10 @@ public class WaypointClient : MonoBehaviour
     {
         string returnStr = waypointsBuffer;
         return returnStr;
+    }
+
+    public bool IsConnected()
+    {
+        return socket.Connected;
     }
 }

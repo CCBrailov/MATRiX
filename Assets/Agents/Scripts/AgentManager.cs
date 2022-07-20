@@ -6,22 +6,36 @@ using UnityEngine.Events;
 public class AgentManager : MonoBehaviour
 {
     public bool hideAgentModelsOnSelect = true;
+    public bool atCapacity = false;
 
     [SerializeField]
     int numberOfAgents = 1;
+    int maxAgents = 6;
+    int agentsAdded = 0;
+
     [SerializeField]
     int pathLength = 4;
+
     [SerializeField]
     GameObject agentPrefab;
     [SerializeField]
     WaypointClient client;
 
-    UnityEvent pathProvided;
+    bool initialized = false;
+
     List<Agent> agents;
     List<Vector3> points;
     List<List<Vector3>> paths;
-    float timer;
 
+    float timer = 0;
+
+    public void ToggleBodies()
+    {
+        foreach(Agent a in agents)
+        {
+            a.forceHide = !a.forceHide;
+        }
+    }
 
     [ContextMenu("Ping Server")]
     public void GetWaypointsFromServer()
@@ -33,35 +47,46 @@ public class AgentManager : MonoBehaviour
     {
         agents = new();
         paths = new();
-        pathProvided = new();
-        timer = 0;
     }
 
     void Start()
     {
-        foreach(Transform child in transform)
+        Init();
+    }
+
+    void Update()
+    {
+        timer += Time.deltaTime;
+
+        atCapacity = numberOfAgents >= maxAgents;
+
+        if (!initialized && client.IsConnected())
+        {
+            Debug.Log("Initializing");
+            GetWaypointsFromServer();
+            initialized = true;
+        }
+
+        if(timer >= 8)
+        {
+            GetWaypointsFromServer();
+            timer = 0;
+        }
+    }
+
+    private void Init()
+    {
+        foreach (Transform child in transform)
         {
             Destroy(child.gameObject);
         }
 
-        for(int i = 0; i < numberOfAgents; i++)
+        for (int i = 0; i < numberOfAgents; i++)
         {
             Agent a = Instantiate(agentPrefab, transform).GetComponent<Agent>();
             a.name = $"Agent.{i}";
             a.transform.position = new(Random.Range(-9, 9), 0, Random.Range(-9, 9));
             agents.Add(a);
-        }
-
-        GetWaypointsFromServer();
-    }
-
-    private void Update()
-    {
-        timer += Time.deltaTime;
-        if (timer >= 10)
-        {
-            GetWaypointsFromServer();
-            timer = 0;
         }
     }
 
@@ -83,9 +108,10 @@ public class AgentManager : MonoBehaviour
     {
         string s = client.GetWaypointsFromBuffer();
         Debug.Log($"Received: {s}");
+        paths = new();
         points = new();
         points = DecodeWaypoints(s);
-        paths = new();
+
         for(int i = 0; i < points.Count; i += pathLength)
         {
             List<Vector3> path = new();
@@ -95,21 +121,29 @@ public class AgentManager : MonoBehaviour
             }
             paths.Add(path);
         }
-        foreach(List<Vector3> p in paths)
-        {
-            string debugStr = "";
-            foreach(Vector3 v in p)
-            {
-                debugStr += v.ToString() + " / ";
-            }
-            Debug.Log(debugStr);
-        }
+        
+        //PROBLEM: This function is called when waypoints come from the server
+        //The server runs on a separate thread, so this function is called on a separate thread
+        //It can change member variables of agents, but cannot start navigating because that function must be called from the same thread as the navAgent
         for(int i = 0; i < paths.Count; i++)
         {
-            pathProvided.AddListener(agents[i].StartNav);
+            agents[i].startTrigger = true;
             agents[i].SetPath(paths[i]);
-            pathProvided.Invoke();
-            pathProvided.RemoveAllListeners();
         }
+    }
+
+    public void AddAgent(Agent a)
+    {
+        agents.Add(a);
+        numberOfAgents = agents.Count;
+        a.name = $"Agent.{agentsAdded}";
+        agentsAdded += 1;
+    }
+
+    public void RemoveAgent(Agent a)
+    {
+        agents.Remove(a);
+        Destroy(a.gameObject);
+        numberOfAgents = agents.Count;
     }
 }
