@@ -2,7 +2,19 @@ fileFormatVersion: 2
 guid: 16b49c8cfb2581944a573f53c4e903e4
 ModelImporter:
   serializedVersion: 21202
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      74: 8440248360967096626
+    second: Camera|CameraAction
+  - first:
+      74: 8967749517121878288
+    second: Camera|CameraAction.001
+  - first:
+      74: 5628816005536468543
+    second: Camera|CameraAction.002
+  - first:
+      74: -781826599034951800
+    second: Camera|CameraAction.003
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -76,7 +88,7 @@ ModelImporter:
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
   referencedClips: []
-  importAnimation: 1
+  importAnimation: 0
   humanDescription:
     serializedVersion: 3
     human: []

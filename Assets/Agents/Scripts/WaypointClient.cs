@@ -10,6 +10,9 @@ using System.Diagnostics;
 
 public class WaypointClient : MonoBehaviour
 {
+    [Tooltip("Static Camera used for casting Prediction coordinates to World coordinates")]
+    public PointConverter converter;
+
     TcpClient socket;
     NetworkStream stream;
     byte[] receiveBuffer;
@@ -40,6 +43,24 @@ public class WaypointClient : MonoBehaviour
     {
         UnityEngine.Debug.Log("Shutting down server");
         serverProcess.Kill();
+    }
+
+    public void Ping(List<Agent> agents, UnityAction call)
+    {
+        if (socket.Connected)
+        {
+            received.AddListener(call);
+            string aString = "";
+            foreach(Agent a in agents)
+            {
+                
+            }
+            stream.Write(Encoding.UTF8.GetBytes(aString));
+        }
+        else
+        {
+            UnityEngine.Debug.Log("Server not yet connected");
+        }
     }
 
     public void Ping(int numAgents, int pathLength, UnityAction call)
