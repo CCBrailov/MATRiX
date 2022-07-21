@@ -22,11 +22,11 @@ public class WaypointClient : MonoBehaviour
 
     private void Awake()
     {
-        String path = @"C:\users\cb3\Documents\MATRiX-Python\TestServer2.py";
-        serverProcess = new();
-        serverProcess.StartInfo.FileName = "python";
-        serverProcess.StartInfo.Arguments = path;
-        serverProcess.Start();
+        //String path = @"C:\users\cb3\Documents\MATRiX-Python\TestServer1.py";
+        //serverProcess = new();
+        //serverProcess.StartInfo.FileName = "python";
+        //serverProcess.StartInfo.Arguments = path;
+        //serverProcess.Start();
 
         received = new();
 
