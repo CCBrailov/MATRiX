@@ -41,8 +41,7 @@ public class AgentManager : MonoBehaviour
     [ContextMenu("Ping Server")]
     public void GetWaypointsFromServer()
     {
-        client.Ping(numberOfAgents, pathLength, AcceptWaypoints);
-        //client.Ping(agents, AcceptWaypoints);
+        client.RequestRandomPoints(numberOfAgents, pathLength, AcceptWaypoints);
     }
 
     private void Awake()

@@ -22,11 +22,11 @@ public class WaypointClient : MonoBehaviour
 
     private void Awake()
     {
-        //String path = @"C:\users\cb3\Documents\MATRiX-Python\TestServer1.py";
-        //serverProcess = new();
-        //serverProcess.StartInfo.FileName = "python";
-        //serverProcess.StartInfo.Arguments = path;
-        //serverProcess.Start();
+        String path = @"C:\users\cb3\Documents\MATRiX-Python\TestServer.py";
+        serverProcess = new();
+        serverProcess.StartInfo.FileName = "python";
+        serverProcess.StartInfo.Arguments = path;
+        serverProcess.Start();
 
         received = new();
 
@@ -45,7 +45,8 @@ public class WaypointClient : MonoBehaviour
         serverProcess.Kill();
     }
 
-    public void Ping(List<Agent> agents, UnityAction call)
+    
+    public void RequestAgentPoints(List<Agent> agents, UnityAction call)
     {
         if (socket.Connected)
         {
@@ -63,7 +64,7 @@ public class WaypointClient : MonoBehaviour
         }
     }
 
-    public void Ping(int numAgents, int pathLength, UnityAction call)
+    public void RequestRandomPoints(int numAgents, int pathLength, UnityAction call)
     {
         if (socket.Connected)
         {
