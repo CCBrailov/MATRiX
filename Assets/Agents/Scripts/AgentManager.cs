@@ -22,7 +22,7 @@ public class AgentManager : MonoBehaviour
     [SerializeField]
     WaypointClient client;
 
-    bool initialized = false;
+    //bool initialized = false;
 
     public List<Agent> agents;
     List<Vector3> points;
@@ -64,12 +64,12 @@ public class AgentManager : MonoBehaviour
 
         atCapacity = numberOfAgents >= maxAgents;
 
-        if (!initialized && client.IsConnected())
-        {
-            Debug.Log("Initializing");
-            GetWaypointsFromServer();
-            initialized = true;
-        }
+        //if (!initialized && client.IsConnected())
+        //{
+        //    Debug.Log("Initializing");
+        //    GetWaypointsFromServer();
+        //    initialized = true;
+        //}
 
         if(timer >= tick)
         {

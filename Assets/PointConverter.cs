@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class PointConverter : MonoBehaviour
 {
-    Camera camera;
+    Camera cam;
     [SerializeField]
     Vector3 point;
 
     private void Awake()
     {
-        camera = FindObjectOfType<Camera>();
+        cam = FindObjectOfType<Camera>();
     }
 
     private void Update()
@@ -21,13 +21,13 @@ public class PointConverter : MonoBehaviour
             Vector3 wp = ScreenPointToWorld(mp);
             Debug.Log("Mouse Point: " + mp);
             Debug.Log("World Point: " + wp);
-            Debug.Log("Backwards: " + camera.WorldToScreenPoint(wp));
+            Debug.Log("Backwards: " + cam.WorldToScreenPoint(wp));
         }
     }
 
     public Vector3 ScreenPointToWorld(Vector3 screenPoint)
     {
-        Ray ray = camera.ScreenPointToRay(screenPoint);
+        Ray ray = cam.ScreenPointToRay(screenPoint);
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
             return hit.point;
