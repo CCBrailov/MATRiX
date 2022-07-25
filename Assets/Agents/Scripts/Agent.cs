@@ -10,6 +10,7 @@ public class Agent : MonoBehaviour
     public List<Vector3> waypoints;
     public bool startTrigger = false;
     public bool forceHide = false;
+    public int id;
 
     [SerializeField]
     GameObject model;
@@ -145,6 +146,15 @@ public class Agent : MonoBehaviour
     public void SetPath(List<Vector3> path)
     {
         waypoints = path;
+    }
+    public string Encode()
+    {
+        //Format: {id},{x}/{y},{x0}/{y0}
+        float x = transform.position.x;
+        float y = transform.position.z;
+        float x0 = trajectory[0].x;
+        float y0 = trajectory[0].z;
+        return $"{id},{x}/{y},{x0}/{y0}";
     }
 
     [ContextMenu("Restart Path")]

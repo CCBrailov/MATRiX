@@ -41,7 +41,8 @@ public class AgentManager : MonoBehaviour
     [ContextMenu("Ping Server")]
     public void GetWaypointsFromServer()
     {
-        client.RequestRandomPoints(numberOfAgents, pathLength, AcceptWaypoints);
+        client.RequestRandomPoints(numberOfAgents, pathLength, AcceptListWaypoints);
+        client.RequestAgentPoints(agents, AcceptListWaypoints);
     }
 
     private void Awake()
@@ -91,22 +92,22 @@ public class AgentManager : MonoBehaviour
         }
     }
 
-    List<Vector3> DecodeWaypoints(string s)
+    public void AcceptListWaypoints()
     {
-        List<Vector3> points = new();
-        List<string> separated = new(s.Split(","));
-        separated.RemoveAt(0);
-        for (int i = 0; i < separated.Count - 1; i += 2)
+        static List<Vector3> DecodeWaypoints(string s)
         {
-            float x = float.Parse(separated[i]);
-            float z = float.Parse(separated[i + 1]);
-            points.Add(new(x, 0, z));
+            List<Vector3> points = new();
+            List<string> separated = new(s.Split(","));
+            separated.RemoveAt(0);
+            for (int i = 0; i < separated.Count - 1; i += 2)
+            {
+                float x = float.Parse(separated[i]);
+                float z = float.Parse(separated[i + 1]);
+                points.Add(new(x, 0, z));
+            }
+            return points;
         }
-        return points;
-    }
 
-    public void AcceptWaypoints()
-    {
         string s = client.GetWaypointsFromBuffer();
         //Debug.Log($"Received: {s}");
         paths = new();
@@ -133,11 +134,17 @@ public class AgentManager : MonoBehaviour
         }
     }
 
+    public void AcceptAgentWaypoints()
+    {
+
+    }
+
     public void AddAgent(Agent a)
     {
         agents.Add(a);
         numberOfAgents = agents.Count;
         a.name = $"Agent.{agentsAdded}";
+        a.id = agentsAdded;
         agentsAdded += 1;
     }
 
@@ -148,3 +155,4 @@ public class AgentManager : MonoBehaviour
         numberOfAgents = agents.Count;
     }
 }
+

@@ -13,6 +13,8 @@ public class WaypointClient : MonoBehaviour
     [Tooltip("Static Camera used for casting Prediction coordinates to World coordinates")]
     public PointConverter converter;
 
+    [SerializeField]
+    bool autoStart = true;
     TcpClient socket;
     NetworkStream stream;
     byte[] receiveBuffer;
@@ -22,11 +24,14 @@ public class WaypointClient : MonoBehaviour
 
     private void Awake()
     {
-        String path = @"C:\users\cb3\Documents\MATRiX-Python\TestServer.py";
-        serverProcess = new();
-        serverProcess.StartInfo.FileName = "python";
-        serverProcess.StartInfo.Arguments = path;
-        serverProcess.Start();
+        if (autoStart)
+        {
+            String path = @"C:\users\cb3\Documents\MATRiX-Python\TestServer2.py";
+            serverProcess = new();
+            serverProcess.StartInfo.FileName = "python";
+            serverProcess.StartInfo.Arguments = path;
+            serverProcess.Start();
+        }
 
         received = new();
 
@@ -51,11 +56,13 @@ public class WaypointClient : MonoBehaviour
         if (socket.Connected)
         {
             received.AddListener(call);
-            string aString = "";
+            string aString = "a";
             foreach(Agent a in agents)
             {
-                
+                aString += a.Encode();
+                aString += "|";
             }
+            aString.Remove(aString.Length - 1);
             stream.Write(Encoding.UTF8.GetBytes(aString));
         }
         else
@@ -69,7 +76,7 @@ public class WaypointClient : MonoBehaviour
         if (socket.Connected)
         {
             received.AddListener(call);
-            string nStr = "" + (numAgents * pathLength);
+            string nStr = "r" + (numAgents * pathLength);
             stream.Write(Encoding.UTF8.GetBytes(nStr));
         }
         else
