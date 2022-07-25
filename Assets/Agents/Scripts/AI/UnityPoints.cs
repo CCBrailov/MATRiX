@@ -2,24 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UnityPoints
+public static class UnityPoints
 {
-    public UnityPoints()
+    public static void GeneratePaths(AgentManager am)
     {
-
-    }
-
-    public List<Vector3> GetWaypoints()
-    {
-        List<Vector3> waypoints = new();
-        for(int i = 0; i < 4; i++)
+        foreach (Agent a in am.agents)
         {
-            float x = Random.Range(-9, 9);
-            float y = 0;
-            float z = Random.Range(-9, 9);
-            Vector3 wp = new(x, y, z);
-            waypoints.Add(wp);
+            a.waypoints.Clear();
+            float angle = Random.Range(-0.2f, 0.2f);
+            Quaternion rotation = a.transform.rotation;
+            Vector3 forward = a.transform.forward;
+            for (int i = 1; i <= am.pathLength; i++)
+            {
+                a.waypoints.Add(a.transform.position + (a.transform.forward.normalized * i));
+            }
+            a.StartNav();
         }
-        return waypoints;
     }
 }

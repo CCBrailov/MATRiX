@@ -22,7 +22,7 @@ public class Agent : MonoBehaviour
     LineRenderer lineRenderer;
     PastTracker pastTracker;
     AgentManager agentManager;
-    UnityPoints pointMaker;
+    //UnityPoints pointMaker;
     NavMeshAgent navAgent;
     Animator animator;
     Color gizmoColor;
@@ -40,7 +40,7 @@ public class Agent : MonoBehaviour
         animator = GetComponent<Animator>();
         agentManager = GetComponentInParent<AgentManager>();
         gizmoColor = Random.ColorHSV(0, 1, 1, 1, 1, 1);
-        pointMaker = new();
+        //pointMaker = new();
     }
     private void Start()
     {
@@ -78,6 +78,7 @@ public class Agent : MonoBehaviour
         if(lastFrameMesh == 1 && thisFrameMesh == 8)
         {
             Debug.Log(name + " has entered Prediction Space");
+            //agentManager.GetWaypointsFromServer();
         }
 
         if(lastFrameMesh == 8 && thisFrameMesh == 1)
@@ -122,7 +123,7 @@ public class Agent : MonoBehaviour
         if (arrived && step < waypoints.Count)
         {
             navAgent.destination = waypoints[step];
-            navAgent.speed = Vector3.Distance(transform.position, waypoints[step]) / 2;
+            navAgent.speed = Vector3.Distance(transform.position, waypoints[step]);
             step++;
         }
         else if (arrived && step == waypoints.Count)
@@ -162,7 +163,7 @@ public class Agent : MonoBehaviour
     {
         step = 1;
         navAgent.destination = waypoints[0];
-        navAgent.speed = Vector3.Distance(transform.position, waypoints[0]) / 2;
+        navAgent.speed = Vector3.Distance(transform.position, waypoints[0]);
     }
 
     #region Editor Gizmos

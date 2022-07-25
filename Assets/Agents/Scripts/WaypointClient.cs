@@ -22,6 +22,8 @@ public class WaypointClient : MonoBehaviour
     string waypointsBuffer = "";
     Process serverProcess;
 
+    float timer = 0;
+
     private void Awake()
     {
         if (autoStart)
@@ -33,6 +35,22 @@ public class WaypointClient : MonoBehaviour
             serverProcess.Start();
         }
 
+        TryConnect();
+    }
+
+    private void Update()
+    {
+        timer += Time.deltaTime;
+        if(!socket.Connected && timer > 3)
+        {
+            UnityEngine.Debug.Log("Attempting to reconnect");
+            TryConnect();
+            timer = 0;
+        }
+    }
+
+    private void TryConnect()
+    {
         received = new();
 
         socket = new TcpClient
@@ -57,12 +75,15 @@ public class WaypointClient : MonoBehaviour
         {
             received.AddListener(call);
             string aString = "a";
-            foreach(Agent a in agents)
+            for (int i = 0; i < agents.Count; i++)
             {
+                Agent a = agents[i];
                 aString += a.Encode();
-                aString += "|";
+                if (i < agents.Count - 1)
+                {
+                    aString += "|";
+                }
             }
-            aString.Remove(aString.Length - 1);
             stream.Write(Encoding.UTF8.GetBytes(aString));
         }
         else

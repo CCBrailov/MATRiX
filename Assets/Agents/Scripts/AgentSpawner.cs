@@ -44,7 +44,7 @@ public class AgentSpawner : MonoBehaviour
             a.transform.SetPositionAndRotation(transform.position, transform.rotation);
             for(int i = 1; i <= manager.pathLength; i++)
             {
-                a.waypoints.Add(transform.position + (transform.forward.normalized * i * 3));
+                a.waypoints.Add(transform.position + (transform.forward.normalized * i));
             }
             a.StartNav();
         }

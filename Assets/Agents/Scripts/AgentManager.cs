@@ -24,11 +24,12 @@ public class AgentManager : MonoBehaviour
 
     bool initialized = false;
 
-    List<Agent> agents;
+    public List<Agent> agents;
     List<Vector3> points;
     List<List<Vector3>> paths;
 
     float timer = 0;
+    float tick = 3;
 
     public void ToggleBodies()
     {
@@ -41,8 +42,9 @@ public class AgentManager : MonoBehaviour
     [ContextMenu("Ping Server")]
     public void GetWaypointsFromServer()
     {
-        client.RequestRandomPoints(numberOfAgents, pathLength, AcceptListWaypoints);
-        client.RequestAgentPoints(agents, AcceptListWaypoints);
+        //client.RequestRandomPoints(numberOfAgents, pathLength, AcceptListWaypoints);
+        //client.RequestAgentPoints(agents, AcceptAgentWaypoints);
+        UnityPoints.GeneratePaths(this);
     }
 
     private void Awake()
@@ -69,7 +71,7 @@ public class AgentManager : MonoBehaviour
             initialized = true;
         }
 
-        if(timer >= 6)
+        if(timer >= tick)
         {
             GetWaypointsFromServer();
             timer = 0;
@@ -136,7 +138,43 @@ public class AgentManager : MonoBehaviour
 
     public void AcceptAgentWaypoints()
     {
+        
+        Dictionary<Agent, List<Vector3>> DecodeWaypoints(string s)
+        {
+            Dictionary<Agent, List<Vector3>> trajectories = new();
+            
+            //Step 1: Separate the agents
+            List<string> step1 = new(s.Split("|"));
+            foreach(string str in step1)
+            {
+                //Step 2: Separate the ID from the path
+                string[] step2 = str.Split(":");
+                int id = int.Parse(step2[0]);
 
+                //Step 3: Separate and convert the path
+                string[] step3 = step2[1].Split(",");
+                List<Vector3> path = new();
+                for(int i = 0; i < step3.Length; i += 2)
+                {
+                    float x = float.Parse(step3[i]);
+                    float y = float.Parse(step3[i + 1]);
+                    path.Add(new Vector3(x, 0, y));
+                }
+
+                //Step 4: Add entry to dictionary
+                trajectories.Add(GetAgent(id), path);
+            }
+            return trajectories;
+        }
+
+        string s = client.GetWaypointsFromBuffer();
+        Dictionary<Agent, List<Vector3>> trajectories = DecodeWaypoints(s);
+        foreach(KeyValuePair<Agent, List<Vector3>> pair in trajectories)
+        {
+            pair.Key.SetPath(pair.Value);
+            pair.Key.startTrigger = true;
+        }
+        Debug.Log(s);
     }
 
     public void AddAgent(Agent a)
@@ -153,6 +191,18 @@ public class AgentManager : MonoBehaviour
         agents.Remove(a);
         Destroy(a.gameObject);
         numberOfAgents = agents.Count;
+    }
+
+    Agent GetAgent(int id)
+    {
+        foreach(Agent a in agents)
+        {
+            if(a.id == id)
+            {
+                return a;
+            }
+        }
+        return null;
     }
 }
 

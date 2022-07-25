@@ -214,6 +214,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   converter: {fileID: 1042466008}
+  autoStart: 1
 --- !u!4 &420242473
 Transform:
   m_ObjectHideFlags: 0
@@ -260,10 +261,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hideAgentModelsOnSelect: 0
   atCapacity: 0
-  maxAgents: 6
-  pathLength: 3
+  maxAgents: 10
+  pathLength: 8
   agentPrefab: {fileID: 1522385105327376544, guid: cbe7c8b92de5ec84faae905d2ebdd457, type: 3}
   client: {fileID: 420242472}
+  agents: []
 --- !u!4 &545391354
 Transform:
   m_ObjectHideFlags: 0
@@ -574,6 +576,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3930448172528375971, guid: 0e3e78cdd94839540826c244ffca54bc, type: 3}
+      propertyPath: interval
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0e3e78cdd94839540826c244ffca54bc, type: 3}
 --- !u!1001 &1468677156
@@ -878,6 +884,10 @@ PrefabInstance:
     - target: {fileID: 2983981814390342958, guid: 0e3e78cdd94839540826c244ffca54bc, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3930448172528375971, guid: 0e3e78cdd94839540826c244ffca54bc, type: 3}
+      propertyPath: interval
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0e3e78cdd94839540826c244ffca54bc, type: 3}
