@@ -28,6 +28,8 @@ public class Agent : MonoBehaviour
     Color gizmoColor;
     float timer = 0;
 
+    public bool inPredictionSpace;
+
     float lifetime = 0;
     float lifespan = 60;
 
@@ -53,6 +55,9 @@ public class Agent : MonoBehaviour
     }
     private void Update()
     {
+        //id = agentManager.agents.IndexOf(this);
+        //name = $"agent.{id}";
+
         #region Editor Gizmos
         if (agentManager.hideAgentModelsOnSelect && (Selection.Contains(this.gameObject) || Selection.Contains(this.transform.parent.gameObject)))
         {
@@ -74,6 +79,8 @@ public class Agent : MonoBehaviour
         NavMeshHit hit;
         navAgent.SamplePathPosition(NavMesh.AllAreas, 0f, out hit);
         int thisFrameMesh = hit.mask;
+
+        inPredictionSpace = thisFrameMesh == 8;
 
         if(lastFrameMesh == 1 && thisFrameMesh == 8)
         {
@@ -141,7 +148,7 @@ public class Agent : MonoBehaviour
 
         if (markedForRemoval)
         {
-            agentManager.RemoveAgent(this);
+
         }
     }
     public void SetPath(List<Vector3> path)

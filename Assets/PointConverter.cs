@@ -4,14 +4,9 @@ using UnityEngine;
 
 public class PointConverter : MonoBehaviour
 {
-    Camera cam;
+    public Camera cam;
     [SerializeField]
     Vector3 point;
-
-    private void Awake()
-    {
-        cam = FindObjectOfType<Camera>();
-    }
 
     private void Update()
     {
@@ -36,5 +31,10 @@ public class PointConverter : MonoBehaviour
         {
             return new Vector3(0, 0, 0);
         }
+    }
+
+    public Vector3 WorldPointToScreen(Vector3 worldPoint)
+    {
+        return cam.WorldToScreenPoint(worldPoint);
     }
 }

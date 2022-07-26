@@ -10,6 +10,8 @@ public class AgentSpawner : MonoBehaviour
     GameObject agentPrefab;
     [SerializeField]
     float interval = 10;
+    [SerializeField]
+    bool spawnImmediately;
     float randInterval;
     float timer = 0;
 
@@ -18,6 +20,15 @@ public class AgentSpawner : MonoBehaviour
         manager = FindObjectOfType<AgentManager>();
         NextInterval();
     }
+
+    void Start()
+    {
+        if (spawnImmediately)
+        {
+            SpawnAgent();
+        }
+    }
+
     void Update()
     {
         timer += Time.deltaTime;

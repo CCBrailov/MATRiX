@@ -6,7 +6,7 @@ MonoImporter:
   defaultReferences:
   - manager: {instanceID: 0}
   - agentPrefab: {fileID: 1522385105327376544, guid: cbe7c8b92de5ec84faae905d2ebdd457, type: 3}
-  executionOrder: 0
+  executionOrder: 100
   icon: {instanceID: 0}
   userData: 
   assetBundleName: 
