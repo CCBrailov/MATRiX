@@ -8,15 +8,18 @@ public class PointConverter : MonoBehaviour
     [SerializeField]
     Vector3 point;
 
+    [ExecuteInEditMode]
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
             Vector3 mp = Input.mousePosition;
             Vector3 wp = ScreenPointToWorld(mp);
-            Debug.Log("Mouse Point: " + mp);
-            Debug.Log("World Point: " + wp);
-            Debug.Log("Backwards: " + cam.WorldToScreenPoint(wp));
+
+            Vector3 SCANpoint = new((mp.x / cam.pixelWidth) * 16, (mp.y / cam.pixelHeight) * 14, 0);
+
+            Debug.Log($"World Point: {wp}");
+            Debug.Log($"SCAN Point: {SCANpoint}");
         }
     }
 

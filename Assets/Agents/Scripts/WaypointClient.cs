@@ -12,6 +12,7 @@ public class WaypointClient : MonoBehaviour
 {
     [Tooltip("Static Camera used for casting Prediction coordinates to World coordinates")]
     public PointConverter converter;
+    public FileWriter fileWriter;
 
     [SerializeField]
     bool autoStart = true;
@@ -28,7 +29,7 @@ public class WaypointClient : MonoBehaviour
     {
         if (autoStart)
         {
-            String path = @"C:\users\cb3\Documents\MATRiX-Python\TestServer2.py";
+            String path = @"C:\Users\cb3\Documents\SCAN_Plots\predict_for_MATRiX.py";
             serverProcess = new();
             serverProcess.StartInfo.FileName = "python";
             serverProcess.StartInfo.Arguments = path;
@@ -41,7 +42,7 @@ public class WaypointClient : MonoBehaviour
     private void Update()
     {
         timer += Time.deltaTime;
-        if(!socket.Connected && timer > 3)
+        if(!socket.Connected && timer > 10)
         {
             UnityEngine.Debug.Log("Attempting to reconnect");
             TryConnect();
@@ -64,10 +65,29 @@ public class WaypointClient : MonoBehaviour
 
     private void OnApplicationQuit()
     {
-        UnityEngine.Debug.Log("Shutting down server");
-        serverProcess.Kill();
+        if (autoStart)
+        {
+            UnityEngine.Debug.Log("Shutting down server");
+            serverProcess.Kill();
+        }
     }
 
+    public void RequestSCANPoints(UnityAction call)
+    {
+        if (socket.Connected && fileWriter.readyToPredict)
+        {
+            received.AddListener(call);
+            stream.Write(Encoding.UTF8.GetBytes("Ping!"));
+        }
+        else if (socket.Connected && !fileWriter.readyToPredict)
+        {
+            UnityEngine.Debug.Log("Insufficient data for prediction");
+        }
+        else
+        {
+            UnityEngine.Debug.Log("Server not yet connected");
+        }
+    }
     
     public void RequestAgentPoints(List<Agent> agents, UnityAction call)
     {

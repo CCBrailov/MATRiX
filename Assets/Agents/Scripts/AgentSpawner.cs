@@ -52,10 +52,12 @@ public class AgentSpawner : MonoBehaviour
         {
             Agent a = Instantiate(agentPrefab, manager.transform).GetComponent<Agent>();
             manager.AddAgent(a);
-            a.transform.SetPositionAndRotation(transform.position, transform.rotation);
+            Vector3 pos = transform.position;
+            pos = new(pos.x + Random.Range(-0.8f, 0.8f), pos.y, pos.z + Random.Range(-0.8f, 0.8f));
+            a.transform.SetPositionAndRotation(pos, transform.rotation);
             for(int i = 1; i <= manager.pathLength; i++)
             {
-                a.waypoints.Add(transform.position + (transform.forward.normalized * i));
+                a.waypoints.Add(a.transform.position + (transform.forward.normalized * i));
             }
             a.StartNav();
         }

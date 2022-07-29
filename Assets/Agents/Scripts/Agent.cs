@@ -11,11 +11,15 @@ public class Agent : MonoBehaviour
     public bool startTrigger = false;
     public bool forceHide = false;
     public int id;
+    public int timeStepsLogged = 0;
+    public bool predictable = false;
 
     [SerializeField]
     GameObject model;
     [SerializeField]
     float arrivalDistance;
+
+    float speedFactor;
 
     [SerializeReference]
     int step = 1;
@@ -27,8 +31,10 @@ public class Agent : MonoBehaviour
     Animator animator;
     Color gizmoColor;
     float timer = 0;
+    float removalTimer = 0;
 
     public bool inPredictionSpace;
+    bool markedForRemoval = false;
 
     float lifetime = 0;
     float lifespan = 60;
@@ -42,7 +48,7 @@ public class Agent : MonoBehaviour
         animator = GetComponent<Animator>();
         agentManager = GetComponentInParent<AgentManager>();
         gizmoColor = Random.ColorHSV(0, 1, 1, 1, 1, 1);
-        //pointMaker = new();
+        speedFactor = agentManager.speedFactor;
     }
     private void Start()
     {
@@ -55,8 +61,7 @@ public class Agent : MonoBehaviour
     }
     private void Update()
     {
-        //id = agentManager.agents.IndexOf(this);
-        //name = $"agent.{id}";
+        predictable = timeStepsLogged >= 20;
 
         #region Editor Gizmos
         if (agentManager.hideAgentModelsOnSelect && (Selection.Contains(this.gameObject) || Selection.Contains(this.transform.parent.gameObject)))
@@ -73,8 +78,6 @@ public class Agent : MonoBehaviour
         }
         #endregion
 
-        bool markedForRemoval = false;
-
         #region Entering/Leaving Prediction Space
         NavMeshHit hit;
         navAgent.SamplePathPosition(NavMesh.AllAreas, 0f, out hit);
@@ -84,7 +87,7 @@ public class Agent : MonoBehaviour
 
         if(lastFrameMesh == 1 && thisFrameMesh == 8)
         {
-            Debug.Log(name + " has entered Prediction Space");
+            //Debug.Log(name + " has entered Prediction Space");
             //agentManager.GetWaypointsFromServer();
         }
 
@@ -130,7 +133,7 @@ public class Agent : MonoBehaviour
         if (arrived && step < waypoints.Count)
         {
             navAgent.destination = waypoints[step];
-            navAgent.speed = Vector3.Distance(transform.position, waypoints[step]);
+            navAgent.speed = Vector3.Distance(transform.position, waypoints[step]) * speedFactor;
             step++;
         }
         else if (arrived && step == waypoints.Count)
@@ -148,7 +151,11 @@ public class Agent : MonoBehaviour
 
         if (markedForRemoval)
         {
-
+            removalTimer += Time.deltaTime;
+            if(removalTimer >= 3)
+            {
+                agentManager.RemoveAgent(this);
+            }
         }
     }
     public void SetPath(List<Vector3> path)
@@ -170,7 +177,7 @@ public class Agent : MonoBehaviour
     {
         step = 1;
         navAgent.destination = waypoints[0];
-        navAgent.speed = Vector3.Distance(transform.position, waypoints[0]);
+        navAgent.speed = Vector3.Distance(transform.position, waypoints[0]) * speedFactor;
     }
 
     #region Editor Gizmos
