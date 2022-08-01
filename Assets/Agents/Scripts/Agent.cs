@@ -63,6 +63,7 @@ public class Agent : MonoBehaviour
     {
         predictable = timeStepsLogged >= 20;
 
+#if UNITY_EDITOR
         #region Editor Gizmos
         if (agentManager.hideAgentModelsOnSelect && (Selection.Contains(this.gameObject) || Selection.Contains(this.transform.parent.gameObject)))
         {
@@ -77,6 +78,7 @@ public class Agent : MonoBehaviour
             ShowBody();
         }
         #endregion
+#endif
 
         #region Entering/Leaving Prediction Space
         NavMeshHit hit;

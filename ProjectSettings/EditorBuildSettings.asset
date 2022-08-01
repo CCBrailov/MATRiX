@@ -9,5 +9,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Prototype/Prototype.unity
     guid: d215ee2a9e5ce704bbe8a20f6e02a415
   m_configObjects:
+    Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 7a7a349d97e8338409a453f4facf2cac, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: cba9922b3d1b8ef45a0b20da235ef056, type: 2}
     com.unity.xr.openxr.settings4: {fileID: 11400000, guid: d838b45c6ebade54b9a34184e28c8407, type: 2}
