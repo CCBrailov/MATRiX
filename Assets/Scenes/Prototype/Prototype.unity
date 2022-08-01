@@ -345,7 +345,7 @@ MonoBehaviour:
   speedFactor: 0.8
   maxAgents: 2
   pathLength: 8
-  agentPrefab: {fileID: 1522385105327376544, guid: cbe7c8b92de5ec84faae905d2ebdd457, type: 3}
+  agentPrefab: {fileID: 1522385105327376544, guid: 7798626a597e48f4f8b9b319d1702f52, type: 3}
   client: {fileID: 420242472}
   agents: []
 --- !u!4 &545391354
@@ -835,7 +835,7 @@ PrefabInstance:
     - target: {fileID: 4598892273807706563, guid: 16b49c8cfb2581944a573f53c4e903e4, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 5e0804865e72f994cb22b4be15f215e9, type: 2}
+      objectReference: {fileID: 2100000, guid: d14ee6917ef4e494bbb89dbb0c614978, type: 2}
     - target: {fileID: 5447331667604542231, guid: 16b49c8cfb2581944a573f53c4e903e4, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -843,7 +843,7 @@ PrefabInstance:
     - target: {fileID: 8656079569233510086, guid: 16b49c8cfb2581944a573f53c4e903e4, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 99ae6bc425132b04baab476ee95eed10, type: 2}
+      objectReference: {fileID: 2100000, guid: d14ee6917ef4e494bbb89dbb0c614978, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 16b49c8cfb2581944a573f53c4e903e4, type: 3}
 --- !u!1001 &1706524002

@@ -73,9 +73,13 @@ MonoBehaviour:
   waypoints: []
   startTrigger: 0
   forceHide: 0
+  id: 0
+  timeStepsLogged: 0
+  predictable: 0
   model: {fileID: 3527770135649578778}
   arrivalDistance: 0.2
   step: 1
+  inPredictionSpace: 0
 --- !u!95 &9159757976875638840
 Animator:
   serializedVersion: 4

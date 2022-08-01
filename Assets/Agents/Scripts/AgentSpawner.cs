@@ -18,6 +18,7 @@ public class AgentSpawner : MonoBehaviour
     void Awake()
     {
         manager = FindObjectOfType<AgentManager>();
+        agentPrefab = manager.agentPrefab;
         NextInterval();
     }
 

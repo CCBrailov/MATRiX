@@ -23,8 +23,7 @@ public class AgentManager : MonoBehaviour
     [SerializeField]
     public int pathLength = 4;
 
-    [SerializeField]
-    GameObject agentPrefab;
+    public GameObject agentPrefab;
     [SerializeField]
     WaypointClient client;
 
