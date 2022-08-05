@@ -59,8 +59,8 @@ public class FileWriter : MonoBehaviour
     void WriteLines()
     {
         writer = new StreamWriter(path, true);
-        //foreach(Agent a in manager.agents.Where(agent => agent.inPredictionSpace))
-        foreach (Agent a in manager.agents)
+        foreach(Agent a in manager.agents.Where(agent => agent.inPredictionSpace))
+        //foreach (Agent a in manager.agents)
         {
             int id = a.id;
             a.timeStepsLogged += 1;
